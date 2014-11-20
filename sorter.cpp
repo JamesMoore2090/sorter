@@ -12,6 +12,7 @@
 #include <fstream>
 #include <iomanip>
 #include <string>
+#include <cstdlib>
 
 using namespace std;
 int main(int argc, char* argv[]){
@@ -20,15 +21,38 @@ int main(int argc, char* argv[]){
 		cout << "Usage: sorter [sorterTemplateFile]." << endl;
 		return 1;
 	}// end if
-	if(argv[1] != "bubble" || "heap" || "bucket" || "Bubble" || "Heap" || "Bucket"){
-		cout << "You have entered and invalid type of sort." << endl;
-		return 1;
-	}// end if
-	if(argv[2] < '0' || argv[2] > '1000000'){
+	int arraySize = atoi(argv[2]);
+	// test to make sure the array size is between 0 and 1,000,000
+	if(arraySize < 0){
 		cout << "Your numbers are either to below 0 or above 1000000" << endl;
 		return 1;
-	}
+	}//end if
+	if(arraySize > 1000000){
+		cout << "Your numbers are either to below 0 or above 1000000" << endl;
+		return 1;
+	}//end if
+	int unsortedArray[arraySize];
+	for(int i= 0; i < arraySize; i++){
+		int randomNumber;
+		unsortedArray[i] = randomNum;
+	}//end for
 
+
+
+	string whatSort = argv[1];
+	if((whatSort == "bubble") || (whatSort == "Bubble")){
+		cout << "You have entered " << whatSort << " 3" << endl;
+		//return 1;
+	}// end if
+	else if((whatSort == "bucket") || (whatSort == "Bucket")){
+		cout << "You have entered " << whatSort << " 2" << endl;
+		//return 1;
+	}// end if
+	else if((whatSort == "heap") || (whatSort == "Heap")){
+		cout << "You have entered " << whatSort << endl;
+		//return 1;
+	}// end if
+	else cout << "You have entered an invalid type of sort" << endl;
 
 
 
