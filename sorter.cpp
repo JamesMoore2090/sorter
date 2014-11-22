@@ -13,10 +13,17 @@
 #include <iomanip>
 #include <string>
 #include <cstdlib>
+#include <cmath>
 
-
+// delcaring all the function 
 bool isSorted(int [], int);
 void bubbleSort(int [], int);
+void heapify(int *, int, int);
+void heapsort(int *, int);
+void buildheap(int *, int);
+void swap(int&, int&);
+void bucketsort(int *, int);
+
 using namespace std;
 int main(int argc, char* argv[]){
 	// basic bailout if there are anything else than 3 arguments
@@ -38,7 +45,6 @@ int main(int argc, char* argv[]){
 	for(int i= 0; i < arraySize; i++){
 		int randomNum = rand() %999999;
 		unsortedArray[i] = randomNum;
-	cout << unsortedArray[i] << ", ";
 	}//end for
 	
 
@@ -51,19 +57,23 @@ int main(int argc, char* argv[]){
 	}// end if
 	else if((whatSort == "bucket") || (whatSort == "Bucket")){
 		cout << "You have entered " << whatSort << " 2" << endl;
-		//return 1;
+		bucketsort(unsortedArray, arraySize);
+		for(int i = 0; i<arraySize; i++){
+			cout << unsortedArray[i] << endl;
+		}	
+	//return 1;
 	}// end if
 	else if((whatSort == "heap") || (whatSort == "Heap")){
 		cout << "You have entered " << whatSort << endl;
-		//return 1;
+		heapsort(unsortedArray, arraySize);
+		for(int i = 0; i < arraySize; i++){
+			cout << unsortedArray[i] << endl;
+		}
 	}// end if
 	else cout << "You have entered an invalid type of sort" << endl;
 
 	if(isSorted(unsortedArray, arraySize)){
 		cout << "the array is sorted" << endl;
-		for(int i =0; i<arraySize; i++){
-			cout << unsortedArray[i] << endl;
-		}
 	}// end if
 
 	if(!isSorted(unsortedArray, arraySize)){
@@ -80,6 +90,7 @@ int main(int argc, char* argv[]){
 bool isSorted(int *array, int size){
 	for(int i = 0; i<size-1; i++){
 		if(array[i] > array[i+1]){
+		cout << array[i] << " where does it go false?" << endl;
 			return false;
 		}// end if
 	}// end for
@@ -99,3 +110,66 @@ void bubbleSort(int *array, int size){
 		}// end for j
 	}// end for i
 }// end function
+
+//this sorts the heap
+void heapsort(int *array, int size){
+	int heapsize = size;
+	buildheap(array, size);
+	for(int i = size-1; i >=1; i--){
+		swap(array[0], array[i]);
+		heapsize--;
+		heapify(array, heapsize, 0);
+	}// end for
+}// end function
+
+// this builds the heap
+void buildheap(int *array, int size){
+	for(int i = floor((size)/2); i >= 0; i--){
+		heapify(array, size, i);
+	}// end for
+}// end function
+
+// heapify
+void heapify( int *array, int size, int root){
+	int left = 2*root+1;
+	int right = 2*root+2;
+	int largest;
+	if((left < size) && (array[left] > array[root])){
+		largest = left;
+	}// end if
+	else 
+		largest = root;
+	if((right < size) && (array[right] > array[largest])){
+		largest = right;
+	} // end if
+	if(largest != root){
+		swap(array[root], array[largest]);
+		heapify(array, size, largest);
+	}// end if
+} // end function
+
+// this just swaps
+void swap( int& x, int& y){
+	int temp;
+	temp = x;
+	x=y;
+	y = temp;
+}// end function
+
+
+// this is the bucket sort
+void bucketsort(int *array, int size){
+	int i, j, k;  
+	int count[size]; 
+	for (i = 0; i < size; i++){
+        	count[i] = 0;
+	}// end for
+ 	for (i = 0; i < size; i++){
+		count[i] = array[i];
+	}// end for
+	for (i = 0, j = 0; i < size; i++){  
+		for(; count[i] > 0; (count[i])--){
+			array[j++] = i;
+		}//end for
+	}//end for
+}   // end function
