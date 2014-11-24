@@ -1,4 +1,4 @@
-this is the output file for the sorting presdogram
+this is the output file for the sorting program
 Bubble sort
 number of items in the array 	Time
 50 				0m0.010s
