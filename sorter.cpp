@@ -32,6 +32,7 @@ int main(int argc, char* argv[]){
 		return 1;
 	}// end if
 	int arraySize = atoi(argv[2]);
+	
 	// test to make sure the array size is between 0 and 1,000,000
 	if(arraySize < 0){
 		cout << "Your numbers are either to below 0 or above 1000000" << endl;
@@ -171,4 +172,5 @@ void bucketsort(int *array, int size){
 			array[index++] = i;
 		}// end for
 	}// end for
+	delete [] B;
 }   // end function
