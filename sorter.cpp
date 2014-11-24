@@ -51,33 +51,24 @@ int main(int argc, char* argv[]){
 
 	string whatSort = argv[1];
 	if((whatSort == "bubble") || (whatSort == "Bubble")){
-		cout << "You have entered " << whatSort << " 3" << endl;
 		bubbleSort(unsortedArray, arraySize);
-		//return 1;
 	}// end if
 	else if((whatSort == "bucket") || (whatSort == "Bucket")){
-		cout << "You have entered " << whatSort << " 2" << endl;
 		bucketsort(unsortedArray, arraySize);
-		for(int i = 0; i<arraySize; i++){
-			cout << unsortedArray[i] << endl;
-		}	
-	//return 1;
 	}// end if
 	else if((whatSort == "heap") || (whatSort == "Heap")){
-		cout << "You have entered " << whatSort << endl;
 		heapsort(unsortedArray, arraySize);
-		for(int i = 0; i < arraySize; i++){
-			cout << unsortedArray[i] << endl;
-		}
 	}// end if
-	else cout << "You have entered an invalid type of sort" << endl;
-
+	else{
+		cout << "You have entered an invalid type of sort" << endl;
+		return 1;
+	}//end else
 	if(isSorted(unsortedArray, arraySize)){
-		cout << "the array is sorted" << endl;
+		cout << "yea" << endl;
 	}// end if
 
 	if(!isSorted(unsortedArray, arraySize)){
-		cout << "the array is not sorted" << endl;
+		cout << "nay" << endl;
 	}// end if
 
 
@@ -90,7 +81,6 @@ int main(int argc, char* argv[]){
 bool isSorted(int *array, int size){
 	for(int i = 0; i<size-1; i++){
 		if(array[i] > array[i+1]){
-		cout << array[i] << " where does it go false?" << endl;
 			return false;
 		}// end if
 	}// end for
@@ -159,17 +149,14 @@ void swap( int& x, int& y){
 
 // this is the bucket sort
 void bucketsort(int *array, int size){
-	int i, j, k;  
-	int count[size]; 
-	for (i = 0; i < size; i++){
-        	count[i] = 0;
-	}// end for
- 	for (i = 0; i < size; i++){
-		count[i] = array[i];
-	}// end for
-	for (i = 0, j = 0; i < size; i++){  
-		for(; count[i] > 0; (count[i])--){
-			array[j++] = i;
-		}//end for
-	}//end for
+	int temp;
+	 for(int i= 0; i < size; i++){
+		for (int j = 0; j < size-1; j++){
+            		if (array[j] > array[j+1]){
+				temp = array[j];
+				array[j] = array[j+1];
+				array[j+1] = temp;
+			}
+        }/*End inner for loop*/
+	}/*End outer for loop*/
 }   // end function
