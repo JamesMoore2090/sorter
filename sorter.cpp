@@ -150,27 +150,23 @@ void swap( int& x, int& y){
 
 // this is the bucket sort
 void bucketsort(int *array, int size){
-	int min;
-	int max;
-	int buckets;
-	int index = 0;
-	min = max = array[0];
-	for(int i = 1; i < size; i++){
-		min = (array[i] < min) ? array[i] : min;
-		max = (array[i] > max) ? array[i] : max;
-	} // end for
-	buckets = max - min + 1;
-	int * B = new int[buckets];
-	for(int i = 0; i < buckets; i++){
-		B[i] = 0;
+	int *buckets = new int[1000000];
+	int k = 0;
+	// take all the 'buckets' and set them to zero
+	for(int i = 0; i < 1000000; i++){
+		buckets[i] = 0;
 	}// end for
-	for(int i = 0; i <size; i++){
-		B[array[i] - min]++;
+	// inset all the numbers in the buckets
+	for(int i = 0; i < size; i++){
+		buckets[array[i]]++;
 	}// end for
-	for(int i = min; i <= max; i++){
-		for(int j = 0; j <B[i-min]; j++){
-			array[index++] = i;
-		}// end for
+	// now 'print' for put elements in correct order
+	for(int i = 0; i < 1000000; i++){
+		int count = buckets[i];
+		for(int j = 0; j < count; j++){
+			array[k] = i;
+			k++;
+		} //end for
 	}// end for
-	delete [] B;
-}   // end function
+	delete [] buckets;
+}//end function
